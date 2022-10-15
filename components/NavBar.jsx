@@ -1,14 +1,17 @@
 import React from "react";
+import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <div className="flex justify-between py-5">
-      <div className="text-2xl">Cart Zone</div>
+    <nav className="flex justify-between py-6 px-10 h-15 shadow-md">
+      <Link href="/">
+        <a className="text-lg font-bold">Cart Zone</a>
+      </Link>
       <ul className="flex flex-row space-x-6">
-        <li>Categories</li>
-        <li>Deals</li>
-        <li>What's New</li>
-        <li>Delivery</li>
+        <Link href="/categories">Categories</Link>
+        <Link href="/deals">Deals</Link>
+        <Link href="/shop">What's New</Link>
+        <Link href="/delivery">Delivery</Link>
       </ul>
       <div>
         <form action="">
@@ -31,10 +34,10 @@ const NavBar = () => {
         </form>
       </div>
       <ul className="flex flex-row space-x-6">
-        <li>Account</li>
-        <li>Cart</li>
+        <Link href="/account">Account</Link>
+        <Link href="/cart">Cart</Link>
       </ul>
-    </div>
+    </nav>
   );
 };
 
