@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { Store } from "../utils/Store";
 
 const NavBar = () => {
-  const {state, dispatch} = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { cart } = state;
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  useEffect(() => {
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, [cart.cartItems]);
   return (
     <nav className="flex justify-between py-6 px-10 h-15 shadow-md">
       <Link href="/">
@@ -38,13 +42,16 @@ const NavBar = () => {
       </div>
       <ul className="flex flex-row space-x-6">
         <Link href="/account">Account</Link>
-        <Link href="/cart"><a>
-        Cart {cart.cartItems.length > 0 &&(
-          <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-            {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-          </span>
-        )}
-        </a></Link>
+        <Link href="/cart">
+          <a>
+            Cart{" "}
+            {cartItemsCount > 0 && (
+              <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                {cartItemsCount}
+              </span>
+            )}
+          </a>
+        </Link>
       </ul>
     </nav>
   );
