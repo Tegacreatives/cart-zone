@@ -19,8 +19,8 @@ const CartScreen = () => {
 
   const updateCartHandler = (item, qty) => {
     const quantity = Number(qty);
-    dispatch({type: "CART_ADD_ITEM", payload: {...item, quantity}})
-  }
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  };
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -58,12 +58,23 @@ const CartScreen = () => {
                       </Link>
                     </td>
                     <td className="p-5 text-right">
-                     <select value={item.quantity} onChange={(e) => updateCartHandler(item, e.target.value)} className="bg-white">
-                     {
-                        [...Array(item.countInStock).keys()].map(x => 
-                        <option key={x+1} value={x+1} className="bg-white">{x+1}</option>)
-                      }
-                     </select>
+                      <select
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateCartHandler(item, e.target.value)
+                        }
+                        className="bg-white"
+                      >
+                        {[...Array(item.countInStock).keys()].map((x) => (
+                          <option
+                            key={x + 1}
+                            value={x + 1}
+                            className="bg-white"
+                          >
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                     <td className="p-5 text-right">${item.price}</td>
                     <td className="p-5 text-center">
@@ -80,13 +91,17 @@ const CartScreen = () => {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)})
-                  {''}
+                  Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}){""}
                   : ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
                 </div>
               </li>
               <li>
-                <button className="primary-button w-full" onClick={() => Router.push('/shipping')}>Checkout</button>
+                <button
+                  className="primary-button w-full"
+                  onClick={() => Router.push("login?redirect=/shipping")}
+                >
+                  Checkout
+                </button>
               </li>
             </ul>
           </div>
@@ -96,4 +111,4 @@ const CartScreen = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(CartScreen), {ssr:false});
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
