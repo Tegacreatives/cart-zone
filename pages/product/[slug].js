@@ -24,7 +24,7 @@ const ProductPage = () => {
       return;
     }
     dispatch({type: "CART_ADD_ITEM", payload: {...product, quantity}});
-    // Router.push('/cart');
+    Router.push('/cart');
   }
   return (
     <Layout title={product.name}>
